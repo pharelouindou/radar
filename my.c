@@ -5,7 +5,7 @@
 ** my
 */
 
-#include "mom.h"
+#include "dad.h"
 #include <unistd.h>
 #include <stdio.h>
 
@@ -45,3 +45,13 @@ void printf_str(va_list ap)
 
     my_putstr(b);
 }
+
+// int my_strlen(char const *str)
+// {
+//     int i;
+//     int y = 0;
+
+//     for (i = 0; str[i] != '\0'; i++)
+//         y++;
+//     return y;
+// }

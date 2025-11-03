@@ -1,26 +1,57 @@
 ##
-## EPITECH PROJECT, 2023
+## EPITECH PROJECT, 2024
 ## Makefile
 ## File description:
-## compile
+## add
 ##
 
-NAME    =     my_radar
+LIBNAME	=	mysh
 
-SRCS    = $(wildcard *.c)
+SRC	=	arrays.c	\
+		builtin.c	\
+		code.c	\
+		cons.c	\
+		dex.c	\
+		exec.c	\
+		fil.c	\
+		function.c	\
+		list.c	\
+		minishell.c	\
+		my.c	\
+		our.c	\
+		tools.c	\
+		type.c	\
+		my_printf.c	\
+		vin.c	\
+		execute.c
 
-OBJS    = $(SRCS:.c=.o)
+OBJ	=	$(SRC:.c=.o)
 
-CFLAGS	= -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
-all: $(NAME)
+autre 	= 	*~	\
+		*.log	\
+		a.out	\
+		*.gcov	\
+		*.gcno	\
+		*.gcda
 
-$(NAME): $(OBJS)
-	gcc -o $(NAME) $(OBJS) $(CFLAGS)
+all	: 	$(LIBNAME)
+
+$(LIBNAME):	$(OBJ)
+		gcc $(SRC) main.c -o $(LIBNAME) -g3
 
 clean:
-	rm -rf *.o
+		rm -f $(OBJ)
+fclean:		clean
+		rm -f $(LIBNAME) $(autre) 	unit_tests
 
-fclean: clean
-	rm -rf $(NAME)
+re:		fclean all
 
-re: fclean all
+unit_tests :	fclean $(LIBNAME)
+	     	gcc $(SRC) tests/*.c -o unit_tests \
+			-coverage -lcriterion -lgcov
+
+tests_run :	unit_tests
+		./unit_tests
+		gcovr
+		gcovr --exclude tests/test
+		gcovr --exclude tests/test/ --branches
