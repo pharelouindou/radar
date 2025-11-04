@@ -1,57 +1,25 @@
 ##
-## EPITECH PROJECT, 2024
+## EPITECH PROJECT, 2025
 ## Makefile
 ## File description:
 ## add
 ##
 
-LIBNAME	=	mysh
+CC = gcc
+CFLAGS = -Wall -Wextra -Iinclude
+SRC = $(wildcard *src/*.c)
+OBJ = $(SRC:.c=.o)
+NAME = myftp
 
-SRC	=	arrays.c	\
-		builtin.c	\
-		code.c	\
-		cons.c	\
-		dex.c	\
-		exec.c	\
-		fil.c	\
-		function.c	\
-		list.c	\
-		minishell.c	\
-		my.c	\
-		our.c	\
-		tools.c	\
-		type.c	\
-		my_printf.c	\
-		vin.c	\
-		execute.c
+all: $(NAME)
 
-OBJ	=	$(SRC:.c=.o)
-
-autre 	= 	*~	\
-		*.log	\
-		a.out	\
-		*.gcov	\
-		*.gcno	\
-		*.gcda
-
-all	: 	$(LIBNAME)
-
-$(LIBNAME):	$(OBJ)
-		gcc $(SRC) main.c -o $(LIBNAME) -g3
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
-		rm -f $(OBJ)
-fclean:		clean
-		rm -f $(LIBNAME) $(autre) 	unit_tests
+	rm -f $(OBJ)
 
-re:		fclean all
+fclean: clean
+	rm -f $(NAME)
 
-unit_tests :	fclean $(LIBNAME)
-	     	gcc $(SRC) tests/*.c -o unit_tests \
-			-coverage -lcriterion -lgcov
-
-tests_run :	unit_tests
-		./unit_tests
-		gcovr
-		gcovr --exclude tests/test
-		gcovr --exclude tests/test/ --branches
+re: fclean all
